@@ -4,7 +4,7 @@ import android.app.Application
 import okhttp3.*
 
 /**
- * This interceptor will hijack the api calls and return local mock data
+ * This interceptor will hijack the api calls and returns fake local mock data
  */
 class MockResponseInterceptor(private val application: Application) : Interceptor {
 
@@ -27,25 +27,30 @@ class MockResponseInterceptor(private val application: Application) : Intercepto
     }
 
     private fun getMockJsonResponse(uri: String): String {
-        if (isListingPageCall(uri)) {
-            return getListingsResponse()
-        }
         if (isDetailCall(uri)) {
             return getListingDetail()
+        }
+        val page = getListingPage(uri)
+        if (page > 0) {
+            return getListingsResponse(page)
         }
         return ""
     }
 
-    private fun isListingPageCall(uri: String): Boolean {
-        return uri.contains("listings/?page")
+    private fun getListingPage(uri: String): Int {
+        return uri.substringAfter("page=", "0").toInt()
     }
 
     private fun isDetailCall(uri: String): Boolean {
         return uri.contains("detail")
     }
 
-    private fun getListingsResponse(): String {
-        return readAssetString("listings.json")
+    private fun getListingsResponse(page: Int): String {
+        return if (page == 1) {
+            readAssetString("listings_1.json")
+        } else {
+            readAssetString("listings_2.json")
+        }
     }
 
     private fun getListingDetail(): String {

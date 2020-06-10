@@ -1,20 +1,20 @@
 package com.yrgv.flopp.data.network
 
 import android.annotation.SuppressLint
-import com.yrgv.flopp.data.network.model.ListingApiItem
+import com.yrgv.flopp.data.network.model.ListingDetailApiItem
 import com.yrgv.flopp.util.Either
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.schedulers.Schedulers
 
 /**
- * Endpoint returns a page of postings
+ * Gets detailed response for a listing
  */
-class GetPostingsListEndpoint constructor(private val api: ApiService) {
+class GetListingDetailsEndpoint constructor(private val api: ApiService) {
 
     @SuppressLint("CheckResult")
-    fun execute(page: Int, observer: SingleObserver<Either<ApiError, List<ListingApiItem>>>) {
-        Single.just(api.getListings(page))
+    fun execute(id: Long, observer: SingleObserver<Either<ApiError, ListingDetailApiItem>>) {
+        Single.just(api.getDetail(id))
             .flatMap { return@flatMap Single.just(it.execute()) }
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
@@ -38,5 +38,4 @@ class GetPostingsListEndpoint constructor(private val api: ApiService) {
                 }
             }
     }
-
 }

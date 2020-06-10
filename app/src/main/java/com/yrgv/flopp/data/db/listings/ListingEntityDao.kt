@@ -16,4 +16,7 @@ interface ListingEntityDao {
 
     @Query("SELECT * FROM listingentity")
     fun getAll(): Single<List<ListingEntity>>
+
+    @Query("DELETE FROM listingentity")
+    fun removeAll()
 }

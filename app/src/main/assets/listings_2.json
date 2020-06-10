@@ -1,0 +1,142 @@
+[
+  {
+    "id": 11,
+    "title": "Brand new Yamaha R1 for rent",
+    "description": "If you are a sensible rider I'll let you ride my bike. I have been renting this very bike for the past 20 years so you know I am reliable. Price is firm, no negotiation.Full payment required on pickup.",
+    "location": {
+      "line1": "21 Jump Street",
+      "line2": "Unit 3",
+      "city": "Toronto",
+      "province": "Ontario",
+      "country": "Canada"
+    },
+    "price": 2500,
+    "image": "https://dn3bmh8yk8vvw.cloudfront.net/Yr_qCZRZSZq58qiuyFdFXEIRciA=/fit-in/600x600/live-146638-1591724101142.jpg"
+  },
+  {
+    "id": 12,
+    "title": "Honda for rent",
+    "description": "I have been renting this very bike for the past 20 years so you know I am reliable. Price is firm, no negotiation.Full payment required on pickup.",
+    "location": {
+      "line1": "21 Jump Street",
+      "line2": "Unit 3",
+      "city": "Toronto",
+      "province": "Ontario",
+      "country": "Canada"
+    },
+    "price": 15.25,
+    "image": "https://dn3bmh8yk8vvw.cloudfront.net/eaoBQ0rBpaX4tVJrcbcjWvwvJbQ=/fit-in/600x600/live91010-CUPhXKwf9W2BYB07.jpg"
+  },
+  {
+    "id": 13,
+    "title": "Cool Harley Street 500",
+    "description": "Price is firm, no negotiation.Full payment required on pickup. If you are a sensible rider I'll let you ride my bike. I have been renting this very bike for the past 20 years so you know I am reliable.",
+    "location": {
+      "line1": "21 Jump Street",
+      "line2": "Unit 3",
+      "city": "Toronto",
+      "province": "Ontario",
+      "country": "Canada"
+    },
+    "price": 2500,
+    "image": "https://dn3bmh8yk8vvw.cloudfront.net/2byjM906UvsYK4ZByWAYZMTxZSs=/fit-in/600x600/live-11333-1591377526113.jpg"
+  },
+  {
+    "id": 14,
+    "title": "Now you can rent cool",
+    "description": "High School was tough, College deplorable. Fear not! capitalism is here to end you misery. Kick in a few bucks and gain the coolness you always craved. No! The coolness you DESERVE! ",
+    "location": {
+      "line1": "21 Jump Street",
+      "line2": "Unit 3",
+      "city": "Toronto",
+      "province": "Ontario",
+      "country": "Canada"
+    },
+    "price": 2500,
+    "image": "https://dn3bmh8yk8vvw.cloudfront.net/zAHYTCkRSIsWgc5aYpyxf4Dm2mQ=/fit-in/600x600/production-1024-7PfpR2I0soe0-maxresdefault.jpg"
+  },
+  {
+    "id": 15,
+    "title": "Brand new Yamaha R1 for rent",
+    "description": "If you are a sensible rider I'll let you ride my bike. I have been renting this very bike for the past 20 years so you know I am reliable. Price is firm, no negotiation.Full payment required on pickup.",
+    "location": {
+      "line1": "21 Jump Street",
+      "line2": "Unit 3",
+      "city": "Toronto",
+      "province": "Ontario",
+      "country": "Canada"
+    },
+    "price": 2500,
+    "image": "https://dn3bmh8yk8vvw.cloudfront.net/Yr_qCZRZSZq58qiuyFdFXEIRciA=/fit-in/600x600/live-146638-1591724101142.jpg"
+  },
+  {
+    "id": 16,
+    "title": "Honda for rent",
+    "description": "I have been renting this very bike for the past 20 years so you know I am reliable. Price is firm, no negotiation.Full payment required on pickup.",
+    "location": {
+      "line1": "21 Jump Street",
+      "line2": "Unit 3",
+      "city": "Toronto",
+      "province": "Ontario",
+      "country": "Canada"
+    },
+    "price": 15.25,
+    "image": "https://dn3bmh8yk8vvw.cloudfront.net/eaoBQ0rBpaX4tVJrcbcjWvwvJbQ=/fit-in/600x600/live91010-CUPhXKwf9W2BYB07.jpg"
+  },
+  {
+    "id": 17,
+    "title": "Cool Harley Street 500",
+    "description": "Price is firm, no negotiation.Full payment required on pickup. If you are a sensible rider I'll let you ride my bike. I have been renting this very bike for the past 20 years so you know I am reliable.",
+    "location": {
+      "line1": "21 Jump Street",
+      "line2": "Unit 3",
+      "city": "Toronto",
+      "province": "Ontario",
+      "country": "Canada"
+    },
+    "price": 2500,
+    "image": "https://dn3bmh8yk8vvw.cloudfront.net/2byjM906UvsYK4ZByWAYZMTxZSs=/fit-in/600x600/live-11333-1591377526113.jpg"
+  },
+  {
+    "id": 18,
+    "title": "Now you can rent cool",
+    "description": "High School was tough, College deplorable. Fear not! capitalism is here to end you misery. Kick in a few bucks and gain the coolness you always craved. No! The coolness you DESERVE! ",
+    "location": {
+      "line1": "21 Jump Street",
+      "line2": "Unit 3",
+      "city": "Toronto",
+      "province": "Ontario",
+      "country": "Canada"
+    },
+    "price": 2500,
+    "image": "https://dn3bmh8yk8vvw.cloudfront.net/zAHYTCkRSIsWgc5aYpyxf4Dm2mQ=/fit-in/600x600/production-1024-7PfpR2I0soe0-maxresdefault.jpg"
+  },
+  {
+    "id": 19,
+    "title": "Brand new Yamaha R1 for rent",
+    "description": "If you are a sensible rider I'll let you ride my bike. I have been renting this very bike for the past 20 years so you know I am reliable. Price is firm, no negotiation.Full payment required on pickup.",
+    "location": {
+      "line1": "21 Jump Street",
+      "line2": "Unit 3",
+      "city": "Toronto",
+      "province": "Ontario",
+      "country": "Canada"
+    },
+    "price": 2500,
+    "image": "https://dn3bmh8yk8vvw.cloudfront.net/Yr_qCZRZSZq58qiuyFdFXEIRciA=/fit-in/600x600/live-146638-1591724101142.jpg"
+  },
+  {
+    "id": 20,
+    "title": "Honda for rent",
+    "description": "I have been renting this very bike for the past 20 years so you know I am reliable. Price is firm, no negotiation.Full payment required on pickup.",
+    "location": {
+      "line1": "21 Jump Street",
+      "line2": "Unit 3",
+      "city": "Toronto",
+      "province": "Ontario",
+      "country": "Canada"
+    },
+    "price": 15.25,
+    "image": "https://dn3bmh8yk8vvw.cloudfront.net/eaoBQ0rBpaX4tVJrcbcjWvwvJbQ=/fit-in/600x600/live91010-CUPhXKwf9W2BYB07.jpg"
+  }
+]

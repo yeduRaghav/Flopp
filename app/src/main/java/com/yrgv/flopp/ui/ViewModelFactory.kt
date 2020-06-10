@@ -3,9 +3,7 @@ package com.yrgv.flopp.ui
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yrgv.flopp.data.network.ApiService
-import com.yrgv.flopp.data.network.GetDetailsEndpoint
-import com.yrgv.flopp.data.network.GetPostingsListEndpoint
+import com.yrgv.flopp.data.ListingsRepository
 import com.yrgv.flopp.ui.main.MainScreenViewModel
 
 /**
@@ -17,7 +15,6 @@ class ViewModelFactory private constructor(private val application: Application)
     companion object {
         private lateinit var instance : ViewModelFactory
 
-        //todo: can be by lazy ?
         fun getInstance(application: Application): ViewModelFactory {
             if(!this::instance.isInitialized) {
                 instance = ViewModelFactory(application)
@@ -30,9 +27,7 @@ class ViewModelFactory private constructor(private val application: Application)
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(MainScreenViewModel::class.java) -> {
-                MainScreenViewModel(
-                    GetPostingsListEndpoint(ApiService.getInstance(application)),
-                    GetDetailsEndpoint(ApiService.getInstance(application))) as T
+                MainScreenViewModel(ListingsRepository.getInstance(application)) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class :${modelClass.canonicalName}")
         }
