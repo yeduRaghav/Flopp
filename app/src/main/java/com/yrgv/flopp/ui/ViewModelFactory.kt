@@ -3,9 +3,9 @@ package com.yrgv.flopp.ui
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yrgv.flopp.network.ApiService
-import com.yrgv.flopp.network.GetDetailsEndpoint
-import com.yrgv.flopp.network.GetPostingsListEndpoint
+import com.yrgv.flopp.data.network.ApiService
+import com.yrgv.flopp.data.network.GetDetailsEndpoint
+import com.yrgv.flopp.data.network.GetPostingsListEndpoint
 import com.yrgv.flopp.ui.main.MainScreenViewModel
 
 /**

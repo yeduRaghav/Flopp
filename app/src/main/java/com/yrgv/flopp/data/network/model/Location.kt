@@ -1,4 +1,4 @@
-package com.yrgv.flopp.network.model
+package com.yrgv.flopp.data.network.model
 
 import com.google.gson.annotations.SerializedName
 

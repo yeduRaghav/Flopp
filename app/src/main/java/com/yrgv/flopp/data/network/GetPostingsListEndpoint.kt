@@ -1,7 +1,7 @@
-package com.yrgv.flopp.network
+package com.yrgv.flopp.data.network
 
 import android.annotation.SuppressLint
-import com.yrgv.flopp.network.model.Listing
+import com.yrgv.flopp.data.network.model.ListingApiItem
 import com.yrgv.flopp.util.Either
 import io.reactivex.Single
 import io.reactivex.SingleObserver
@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 class GetPostingsListEndpoint constructor(private val api: ApiService) {
 
     @SuppressLint("CheckResult")
-    fun execute(page: Int, observer: SingleObserver<Either<ApiError, List<Listing>>>) {
+    fun execute(page: Int, observer: SingleObserver<Either<ApiError, List<ListingApiItem>>>) {
         Single.just(api.getListings(page))
             .flatMap { return@flatMap Single.just(it.execute()) }
             .subscribeOn(Schedulers.io())

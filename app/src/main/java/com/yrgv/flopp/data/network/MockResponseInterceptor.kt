@@ -1,4 +1,4 @@
-package com.yrgv.flopp.network
+package com.yrgv.flopp.data.network
 
 import android.app.Application
 import okhttp3.*
