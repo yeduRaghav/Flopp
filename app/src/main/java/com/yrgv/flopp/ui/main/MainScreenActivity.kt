@@ -17,7 +17,7 @@ class MainScreenActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(this, ViewModelFactory.getInstance())
+        viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(application))
             .get(MainScreenViewModel::class.java)
         //todo:subscribe for data
     }
