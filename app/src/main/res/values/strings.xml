@@ -2,5 +2,4 @@
     <string name="app_name">Flopp</string>
     <string name="error_view_default_message">Oops! Something went wrong!</string>
     <string name="error_view_retry_button">Try again</string>
-    <string name="failed_to_load">Failed to load</string>
 </resources>

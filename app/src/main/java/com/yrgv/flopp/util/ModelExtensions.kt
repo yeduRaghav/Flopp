@@ -1,7 +1,9 @@
 package com.yrgv.flopp.util
 
+import com.yrgv.flopp.data.db.detail.ListingDetailEntity
 import com.yrgv.flopp.data.db.listings.ListingEntity
 import com.yrgv.flopp.data.network.model.ListingApiItem
+import com.yrgv.flopp.data.network.model.ListingDetailApiItem
 import com.yrgv.flopp.data.network.model.Location
 import com.yrgv.flopp.ui.main.ListingListItem
 
@@ -84,4 +86,19 @@ fun Location.toLocalFormat(): String {
  * */
 fun Float.toLocalCurrencyFormat(): String {
     return "$ $this"
+}
+
+
+fun ListingDetailApiItem.toListingDetailEntity(): ListingDetailEntity {
+    return ListingDetailEntity(
+        id = id,
+        title = title,
+        description = description,
+        location = location.toLocalFormat(),
+        price = price,
+        image = image,
+        lenderName = lenderName,
+        model = model,
+        rating = rating
+    )
 }

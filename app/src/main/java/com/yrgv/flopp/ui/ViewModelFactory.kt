@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yrgv.flopp.data.ListingsRepository
+import com.yrgv.flopp.ui.detail.DetailScreenViewModel
 import com.yrgv.flopp.ui.main.MainScreenViewModel
 
 /**
@@ -28,6 +29,9 @@ class ViewModelFactory private constructor(private val application: Application)
         return when {
             modelClass.isAssignableFrom(MainScreenViewModel::class.java) -> {
                 MainScreenViewModel(ListingsRepository.getInstance(application)) as T
+            }
+            modelClass.isAssignableFrom(DetailScreenViewModel::class.java) -> {
+                DetailScreenViewModel(ListingsRepository.getInstance(application)) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class :${modelClass.canonicalName}")
         }

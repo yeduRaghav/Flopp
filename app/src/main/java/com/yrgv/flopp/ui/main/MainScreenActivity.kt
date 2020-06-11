@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.yrgv.flopp.R
 import com.yrgv.flopp.ui.ViewModelFactory
+import com.yrgv.flopp.ui.detail.DetailScreenActivity
 import com.yrgv.flopp.util.hide
 import com.yrgv.flopp.util.show
 import kotlinx.android.synthetic.main.activity_main_screen.*
@@ -15,8 +16,7 @@ import kotlinx.android.synthetic.main.activity_main_screen.*
 class MainScreenActivity : AppCompatActivity() {
     private lateinit var viewModel: MainScreenViewModel
     private val listingsAdapter = ListingsAdapter { item ->
-        Snackbar.make(main_screen_root, item.title, Snackbar.LENGTH_LONG).show()
-        //todo: load next screen
+        startActivity(DetailScreenActivity.getIntent(item.id, this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +60,7 @@ class MainScreenActivity : AppCompatActivity() {
             MainScreenViewModel.ListDataState.NextPageLoadFailed -> {
                 Snackbar.make(
                     main_screen_root,
-                    getString(R.string.failed_to_load),
+                    getString(R.string.error_view_default_message),
                     Snackbar.LENGTH_LONG
                 ).show()
             }

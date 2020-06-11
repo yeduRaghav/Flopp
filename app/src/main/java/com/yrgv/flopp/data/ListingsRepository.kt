@@ -2,13 +2,16 @@ package com.yrgv.flopp.data
 
 import android.app.Application
 import com.yrgv.flopp.data.db.ListingDatabase
+import com.yrgv.flopp.data.db.detail.ListingDetailEntity
 import com.yrgv.flopp.data.db.listings.ListingEntity
 import com.yrgv.flopp.data.network.ApiError
 import com.yrgv.flopp.data.network.ApiService
 import com.yrgv.flopp.data.network.GetListingDetailsEndpoint
 import com.yrgv.flopp.data.network.GetListingsEndpoint
 import com.yrgv.flopp.data.network.model.ListingApiItem
+import com.yrgv.flopp.data.network.model.ListingDetailApiItem
 import com.yrgv.flopp.util.Either
+import com.yrgv.flopp.util.toListingDetailEntity
 import com.yrgv.flopp.util.toListingEntities
 import io.reactivex.Single
 import io.reactivex.SingleObserver
@@ -88,6 +91,35 @@ class ListingsRepository private constructor(
                 it.getAll()
             }
     }
+
+
+    fun fetchListingDetailFromApi(
+        listingId: Long,
+        observer: SingleObserver<Either<ApiError, ListingDetailApiItem>>
+    ) {
+        getListingDetailsEndpoint.execute(
+            listingId,
+            object : SingleObserver<Either<ApiError, ListingDetailApiItem>> {
+                override fun onSubscribe(d: Disposable) {}
+                override fun onError(e: Throwable) {}
+                override fun onSuccess(response: Either<ApiError, ListingDetailApiItem>) {
+                    if (response is Either.Value) {
+                        listingDatabase.listDetailDao().insert(response.value.toListingDetailEntity())
+                    }
+                    observer.onSuccess(response)
+                }
+            })
+    }
+
+    fun fetchListingDetailFromDb(listingId: Long): Single<ListingDetailEntity> {
+        return Single.just(listingDatabase.listDetailDao())
+            .observeOn(Schedulers.io())
+            .flatMap {
+                it.get(listingId)
+            }
+    }
+
+
 
 }
 
