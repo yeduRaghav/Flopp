@@ -66,20 +66,23 @@ class DefaultListingsRepository private constructor(
     }
 
 
+
     /**
      * Adds the listings to db if there are any.
      * Clears entries in Listing table if its the first page.
      * @param page The page number of the current list of entities.
      * @param listings The list of entities to be added to the db.
+     * @return true if attempted to insert the listings
      * */
-    private fun updateListingsInDb(page: Int, listings: List<ListingEntity>) {
-        if (listings.isEmpty()) return
+    private fun updateListingsInDb(page: Int, listings: List<ListingEntity>): Boolean {
+        if (listings.isEmpty()) return false
         listingDatabase.listingEntityDao().run {
             if (page == 1) {
                 removeAll()
             }
             insert(listings)
         }
+        return true
     }
 
     /**
@@ -107,19 +110,28 @@ class DefaultListingsRepository private constructor(
                 override fun onSubscribe(d: Disposable) {}
                 override fun onError(e: Throwable) {}
                 override fun onSuccess(response: Either<ApiError, ListingDetailApiItem>) {
-                    if (response is Either.Value) {
-                        listingDatabase.listDetailDao().insert(response.value.toListingDetailEntity())
-                    }
-                    observer.onSuccess(response)
+                    handleListingDetailApiCallResponse(observer, response)
                 }
-            })
+            }
+        )
     }
+
+    private fun handleListingDetailApiCallResponse(
+        callbackObserver: SingleObserver<Either<ApiError, ListingDetailApiItem>>,
+        apiResponse: Either<ApiError, ListingDetailApiItem>
+    ) {
+        if (apiResponse is Either.Value) {
+            listingDatabase.listDetailDao().insert(apiResponse.value.toListingDetailEntity())
+        }
+        callbackObserver.onSuccess(apiResponse)
+    }
+
 
     /**
      * Attempts fetch the listing detail object from Db
      * */
     override fun fetchListingDetailFromDb(listingId: Long): Single<Either<Unit, ListingDetailEntity>> {
-        val hardCodedId = 1L //only this id is available in table
+        val hardCodedId = 1L //only this id is ever available in the table
         return Single.just(listingDatabase.listDetailDao())
             .observeOn(Schedulers.io())
             .flatMap { dao ->

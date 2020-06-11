@@ -30,12 +30,4 @@ class ErrorView @JvmOverloads constructor(
             callback()
         }
     }
-
-    /**
-     * Set the error message to be displayed
-     * */
-    fun setMessage(@StringRes messageResId: Int) {
-        messageView.text = context.getString(messageResId)
-    }
-
 }

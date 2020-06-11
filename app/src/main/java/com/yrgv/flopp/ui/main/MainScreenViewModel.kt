@@ -71,15 +71,10 @@ class MainScreenViewModel(
             override fun onSuccess(response: Either<ApiError, List<ListingApiItem>>) {
                 when (response) {
                     is Either.Value -> {
-                        handleApiListingsResponse(page, response.value)
+                        onApiListingsValidResponse(page, response.value)
                     }
                     is Either.Error -> {
-                        if (page == 1) {
-                            fetchLocalListings()
-                        } else {
-                            listDataStateLiveData.postValue(ListDataState.NextPageLoadFailed)
-                            dataLoadingHelper.stopLoading()
-                        }
+                        onApiListingsErrorResponse(page)
                     }
                 }
             }
@@ -87,8 +82,18 @@ class MainScreenViewModel(
         repository.fetchListingsFromApi(page, responseObserver)
     }
 
+
+    private fun onApiListingsErrorResponse(page: Int) {
+        if (page == 1) {
+            fetchLocalListings()
+        } else {
+            listDataStateLiveData.postValue(ListDataState.NextPageLoadFailed)
+            dataLoadingHelper.stopLoading()
+        }
+    }
+
     @SuppressLint("CheckResult")
-    private fun handleApiListingsResponse(page: Int, listingsFromApi: List<ListingApiItem>) {
+    private fun onApiListingsValidResponse(page: Int, listingsFromApi: List<ListingApiItem>) {
         Single.just(listingsFromApi)
             .observeOn(Schedulers.io())
             .flatMap {
@@ -96,12 +101,16 @@ class MainScreenViewModel(
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { localizedListings ->
-                if (page == 1) {
-                    listDataStateLiveData.postValue(ListDataState.FirstPageLoaded)
-                }
-                updateList(localizedListings)
-                dataLoadingHelper.loadingComplete()
+                handleLocalListItemsFromApi(page, localizedListings)
             }
+    }
+
+    private fun handleLocalListItemsFromApi(page: Int, listItems: List<ListingListItem>) {
+        if (page == 1) {
+            listDataStateLiveData.postValue(ListDataState.FirstPageLoaded)
+        }
+        updateList(listItems)
+        dataLoadingHelper.loadingComplete()
     }
 
     @SuppressLint("CheckResult")
@@ -111,16 +120,20 @@ class MainScreenViewModel(
             .flatMap {
                 Single.just(it.toListItem())
             }
-            .subscribe { localizedListings ->
-                if (localizedListings.isNullOrEmpty()) {
-                    listDataStateLiveData.postValue(ListDataState.FirstPageLoadFailed)
-                } else {
-                    listDataStateLiveData.postValue(ListDataState.FirstPageLoaded)
-                    updateList(localizedListings)
-                    isCurrentlyDisplayingOfflineData = true
-                }
-                dataLoadingHelper.reset()
+            .subscribe { localizedListItems ->
+                onLocalListingsFetched(localizedListItems)
             }
+    }
+
+    private fun onLocalListingsFetched(localizedListItems : List<ListingListItem>) {
+        if (localizedListItems.isNullOrEmpty()) {
+            listDataStateLiveData.postValue(ListDataState.FirstPageLoadFailed)
+        } else {
+            listDataStateLiveData.postValue(ListDataState.FirstPageLoaded)
+            updateList(localizedListItems)
+            isCurrentlyDisplayingOfflineData = true
+        }
+        dataLoadingHelper.reset()
     }
 
     @SuppressLint("CheckResult")
@@ -128,17 +141,24 @@ class MainScreenViewModel(
         Single.just(newListingItems)
             .observeOn(Schedulers.io())
             .flatMap {
-                val newValue = mutableListOf<ListingListItem>()
-                listingsListItemsLiveData.value?.let { currentItems ->
-                    newValue.addAll(currentItems)
-                }
-                newValue.addAll(newListingItems)
-                Single.just(newValue)
+                getCollectionForListingItemsLiveData(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { newValues ->
                 listingsListItemsLiveData.postValue(newValues)
             }
+    }
+
+    /**
+     * Generate a collection that will be used to post as value for listingsListItemsLiveData
+     * */
+    private fun getCollectionForListingItemsLiveData(newListingItems: List<ListingListItem>):Single<List<ListingListItem>> {
+        val newValue = mutableListOf<ListingListItem>()
+        listingsListItemsLiveData.value?.let { currentItems ->
+            newValue.addAll(currentItems)
+        }
+        newValue.addAll(newListingItems)
+        return Single.just(newValue)
     }
 
     /**
