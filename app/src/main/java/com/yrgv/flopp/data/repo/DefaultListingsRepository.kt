@@ -1,4 +1,4 @@
-package com.yrgv.flopp.data
+package com.yrgv.flopp.data.repo
 
 import android.app.Application
 import com.yrgv.flopp.data.db.ListingDatabase
@@ -21,22 +21,23 @@ import io.reactivex.schedulers.Schedulers
 /**
  * This repo is responsible for providing data
  */
-class ListingsRepository private constructor(
+class DefaultListingsRepository private constructor(
     private val listingDatabase: ListingDatabase,
     private val getListingsEndpoint: GetListingsEndpoint,
     private val getListingDetailsEndpoint: GetListingDetailsEndpoint
-) {
+) : ListingsRepository {
 
     companion object {
-        private lateinit var repositoryInstance: ListingsRepository
+        private lateinit var repositoryInstance: DefaultListingsRepository
 
-        fun getInstance(application: Application): ListingsRepository {
-            if (!::repositoryInstance.isInitialized) {
-                repositoryInstance = ListingsRepository(
-                    ListingDatabase.getInstance(application),
-                    GetListingsEndpoint(ApiService.getInstance(application)),
-                    GetListingDetailsEndpoint(ApiService.getInstance(application))
-                )
+        fun getInstance(application: Application): DefaultListingsRepository {
+            if (!Companion::repositoryInstance.isInitialized) {
+                repositoryInstance =
+                    DefaultListingsRepository(
+                        ListingDatabase.getInstance(application),
+                        GetListingsEndpoint(ApiService.getInstance(application)),
+                        GetListingDetailsEndpoint(ApiService.getInstance(application))
+                    )
             }
             return repositoryInstance
         }
@@ -45,7 +46,7 @@ class ListingsRepository private constructor(
     /**
      * Fetches listings from api and add them to the repo if it is the first page
      * */
-    fun fetchListingsFromApi(
+    override fun fetchListingsFromApi(
         page: Int,
         observer: SingleObserver<Either<ApiError, List<ListingApiItem>>>
     ) {
@@ -84,7 +85,7 @@ class ListingsRepository private constructor(
     /**
      * Returns all the listings stored locally
      * */
-    fun fetchLocalListings(): Single<List<ListingEntity>> {
+    override fun fetchLocalListings(): Single<List<ListingEntity>> {
         return Single.just(listingDatabase.listingEntityDao())
             .observeOn(Schedulers.io())
             .flatMap {
@@ -96,7 +97,7 @@ class ListingsRepository private constructor(
     /**
      * Attempts to fetch listing detail object from Api and if the response is valid, it is saved in DB.
      * */
-    fun fetchListingDetailFromApi(
+    override fun fetchListingDetailFromApi(
         listingId: Long,
         observer: SingleObserver<Either<ApiError, ListingDetailApiItem>>
     ) {
@@ -117,7 +118,7 @@ class ListingsRepository private constructor(
     /**
      * Attempts fetch the listing detail object from Db
      * */
-    fun fetchListingDetailFromDb(listingId: Long): Single<Either<Unit, ListingDetailEntity>> {
+    override fun fetchListingDetailFromDb(listingId: Long): Single<Either<Unit, ListingDetailEntity>> {
         val hardCodedId = 1L //only this id is available in table
         return Single.just(listingDatabase.listDetailDao())
             .observeOn(Schedulers.io())
@@ -128,8 +129,6 @@ class ListingsRepository private constructor(
                 Single.just(result)
             }
     }
-
-
 
 }
 

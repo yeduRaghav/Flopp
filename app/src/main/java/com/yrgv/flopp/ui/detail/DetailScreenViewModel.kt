@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yrgv.flopp.data.ListingsRepository
 import com.yrgv.flopp.data.network.ApiError
 import com.yrgv.flopp.data.network.model.ListingDetailApiItem
+import com.yrgv.flopp.data.repo.ListingsRepository
 import com.yrgv.flopp.util.Either
 import com.yrgv.flopp.util.toLocalModel
 import io.reactivex.Single
