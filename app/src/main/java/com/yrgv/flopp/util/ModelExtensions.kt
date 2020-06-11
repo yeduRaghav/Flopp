@@ -3,6 +3,7 @@ package com.yrgv.flopp.util
 import com.yrgv.flopp.data.db.listings.ListingEntity
 import com.yrgv.flopp.data.network.model.ListingApiItem
 import com.yrgv.flopp.data.network.model.Location
+import com.yrgv.flopp.ui.main.ListingListItem
 
 /**
  * Holds extension functions for models
@@ -28,6 +29,39 @@ fun ListingApiItem.toListingEntity(): ListingEntity {
     )
 }
 
+fun List<ListingApiItem>.toListItems(): List<ListingListItem> {
+    return mapTo(arrayListOf()) {
+        it.toListItem()
+    }
+}
+
+fun ListingApiItem.toListItem(): ListingListItem {
+    return ListingListItem(
+        id = id,
+        title = "$id $title",
+        price = price.toLocalCurrencyFormat(),
+        location = location.toLocalFormat(),
+        image = image
+    )
+}
+
+fun List<ListingEntity>.toListItem(): List<ListingListItem> {
+    return mapTo(arrayListOf()) {
+        it.toListItem()
+    }
+}
+
+fun ListingEntity.toListItem(): ListingListItem {
+    return ListingListItem(
+        id = id,
+        title = "$id $title",
+        price = price.toLocalCurrencyFormat(),
+        location = location,
+        image = image
+    )
+}
+
+
 /**
  * Converts location into the app's local format
  * */
@@ -45,4 +79,9 @@ fun Location.toLocalFormat(): String {
     }.toString()
 }
 
-
+/**
+ * Converts the float to local currency display format
+ * */
+fun Float.toLocalCurrencyFormat(): String {
+    return "$ $this"
+}

@@ -57,7 +57,8 @@ class ListingsRepository private constructor(
                     }
                     observer.onSuccess(apiResponse)
                 }
-            })
+            }
+        )
     }
 
 
@@ -86,20 +87,6 @@ class ListingsRepository private constructor(
             .flatMap {
                 it.getAll()
             }
-    }
-
-    /**
-     * A simple way to evoke a desired response.
-     * */
-    enum class ForceConfig {
-        //An Api error is returned
-        RESPONSE_API_ERROR,
-
-        // A generic error is returned
-        GENERIC_ERROR,
-
-        // Attempts to fetch data from local source
-        LOAD_OFFLINE
     }
 
 }
