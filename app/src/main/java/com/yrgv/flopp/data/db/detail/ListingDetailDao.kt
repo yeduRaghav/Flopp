@@ -15,5 +15,5 @@ interface ListingDetailDao {
     fun insert(listingDetailEntity: ListingDetailEntity)
 
     @Query("SELECT * FROM listingdetailentity where id == :id")
-    fun get(id: Long): Single<ListingDetailEntity?>
+    fun get(id: Long): ListingDetailEntity?
 }

@@ -24,6 +24,7 @@ class MainScreenViewModel(
 ) : ViewModel() {
 
     private val dataLoadingHelper = DataLoadingHelper()
+    private var isCurrentlyDisplayingOfflineData = false
     private val listingsListItemsLiveData = MutableLiveData<List<ListingListItem>>()
     private val listDataStateLiveData = MutableLiveData<ListDataState>()
 
@@ -48,12 +49,13 @@ class MainScreenViewModel(
     }
 
     private fun reload() {
+        isCurrentlyDisplayingOfflineData = false
         dataLoadingHelper.reset()
         attemptToLoadNextPage()
     }
 
     private fun attemptToLoadNextPage() {
-        if (!dataLoadingHelper.canLoadNextPage()) return
+        if (!dataLoadingHelper.canLoadNextPage() || isCurrentlyDisplayingOfflineData) return
         dataLoadingHelper.startLoading()
         fetchFromApi(dataLoadingHelper.getCurrentPage() + 1)
     }
@@ -82,7 +84,6 @@ class MainScreenViewModel(
                 }
             }
         }
-
         repository.fetchListingsFromApi(page, responseObserver)
     }
 
@@ -116,6 +117,7 @@ class MainScreenViewModel(
                 } else {
                     listDataStateLiveData.postValue(ListDataState.FirstPageLoaded)
                     updateList(localizedListings)
+                    isCurrentlyDisplayingOfflineData = true
                 }
                 dataLoadingHelper.reset()
             }
@@ -151,7 +153,7 @@ class MainScreenViewModel(
 }
 
 /**
- * A simple class to help manage data load states.
+ * A simple class to help manage data loading.
  * */
 data class DataLoadingHelper(
     private var isInFlight: Boolean = false,

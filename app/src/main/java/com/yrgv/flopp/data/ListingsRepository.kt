@@ -93,6 +93,9 @@ class ListingsRepository private constructor(
     }
 
 
+    /**
+     * Attempts to fetch listing detail object from Api and if the response is valid, it is saved in DB.
+     * */
     fun fetchListingDetailFromApi(
         listingId: Long,
         observer: SingleObserver<Either<ApiError, ListingDetailApiItem>>
@@ -111,11 +114,18 @@ class ListingsRepository private constructor(
             })
     }
 
-    fun fetchListingDetailFromDb(listingId: Long): Single<ListingDetailEntity> {
+    /**
+     * Attempts fetch the listing detail object from Db
+     * */
+    fun fetchListingDetailFromDb(listingId: Long): Single<Either<Unit, ListingDetailEntity>> {
+        val hardCodedId = 1L //only this id is available in table
         return Single.just(listingDatabase.listDetailDao())
             .observeOn(Schedulers.io())
-            .flatMap {
-                it.get(listingId)
+            .flatMap { dao ->
+                val result = dao.get(hardCodedId)?.let {
+                    Either.value(it)
+                } ?: Either.error(Unit)
+                Single.just(result)
             }
     }
 

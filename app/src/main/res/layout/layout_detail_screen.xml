@@ -62,7 +62,7 @@
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
-            android:id="@+id/detail_screen_renter_name"
+            android:id="@+id/detail_screen_lender_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_16"
@@ -86,7 +86,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_screen_renter_name"
+            app:layout_constraintTop_toBottomOf="@id/detail_screen_lender_name"
             tools:text="@tools:sample/lorem/random" />
 
         <RatingBar

@@ -5,12 +5,16 @@ import com.yrgv.flopp.data.db.listings.ListingEntity
 import com.yrgv.flopp.data.network.model.ListingApiItem
 import com.yrgv.flopp.data.network.model.ListingDetailApiItem
 import com.yrgv.flopp.data.network.model.Location
+import com.yrgv.flopp.ui.detail.DetailedListing
 import com.yrgv.flopp.ui.main.ListingListItem
 
 /**
  * Holds extension functions for models
  */
 
+/**
+ * Converts api listing model to db model
+ * */
 fun List<ListingApiItem>.toListingEntities(): List<ListingEntity> {
     return mapTo(arrayListOf()) {
         it.toListingEntity()
@@ -37,6 +41,9 @@ fun List<ListingApiItem>.toListItems(): List<ListingListItem> {
     }
 }
 
+/**
+ * Converts api listing model to local model
+ * */
 fun ListingApiItem.toListItem(): ListingListItem {
     return ListingListItem(
         id = id,
@@ -53,6 +60,9 @@ fun List<ListingEntity>.toListItem(): List<ListingListItem> {
     }
 }
 
+/**
+ * Converts db listing object to local model
+ * */
 fun ListingEntity.toListItem(): ListingListItem {
     return ListingListItem(
         id = id,
@@ -88,7 +98,9 @@ fun Float.toLocalCurrencyFormat(): String {
     return "$ $this"
 }
 
-
+/**
+ * Converts detailed api listing to db model
+ */
 fun ListingDetailApiItem.toListingDetailEntity(): ListingDetailEntity {
     return ListingDetailEntity(
         id = id,
@@ -96,6 +108,40 @@ fun ListingDetailApiItem.toListingDetailEntity(): ListingDetailEntity {
         description = description,
         location = location.toLocalFormat(),
         price = price,
+        image = image,
+        lenderName = lenderName,
+        model = model,
+        rating = rating
+    )
+}
+
+/**
+ * Converts detailed api listing to local model
+ * */
+fun ListingDetailApiItem.toLocalModel():DetailedListing {
+    return DetailedListing(
+        id = id,
+        title = title,
+        description = description,
+        location = location.toLocalFormat(),
+        price = price.toLocalCurrencyFormat(),
+        image = image,
+        lenderName = lenderName,
+        model = model,
+        rating = rating
+    )
+}
+
+/**
+ * Converts detailed db listing to local model
+ * */
+fun ListingDetailEntity.toLocalModel():DetailedListing {
+    return DetailedListing(
+        id = id,
+        title = title,
+        description = description,
+        location = location,
+        price = price.toLocalCurrencyFormat(),
         image = image,
         lenderName = lenderName,
         model = model,

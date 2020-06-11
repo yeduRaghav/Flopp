@@ -45,14 +45,14 @@ class MainScreenActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(application))
             .get(MainScreenViewModel::class.java)
         viewModel.getListDataState().observe(this, Observer { state ->
-            handleViewState(state)
+            handleDataState(state)
         })
         viewModel.getListings().observe(this, Observer { listings ->
             listingsAdapter.submitList(listings)
         })
     }
 
-    private fun handleViewState(state: MainScreenViewModel.ListDataState) {
+    private fun handleDataState(state: MainScreenViewModel.ListDataState) {
         when (state) {
             MainScreenViewModel.ListDataState.FirstPageLoaded -> showListView()
             MainScreenViewModel.ListDataState.FirstPageLoading -> showLoadingView()
