@@ -73,6 +73,7 @@ class DetailScreenViewModel(
         )
     }
 
+
     @SuppressLint("CheckResult")
     private fun handleListingFromApi(apiItem: ListingDetailApiItem) {
         Single.just(apiItem)

@@ -36,4 +36,10 @@ class DetailScreenViewModelTest {
         Assert.assertTrue(viewModelSut.getViewState().value == DetailScreenViewModel.ViewState.LoadingFailed)
     }
 
+
+    @Test
+    fun testDetailIsFetchedFromDbWhenApiFetchFails() {
+        //todo:
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.yrgv.flopp.ui.main
 
 import android.annotation.SuppressLint
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -152,7 +153,8 @@ class MainScreenViewModel(
     /**
      * Generate a collection that will be used to post as value for listingsListItemsLiveData
      * */
-    private fun getCollectionForListingItemsLiveData(newListingItems: List<ListingListItem>):Single<List<ListingListItem>> {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun getCollectionForListingItemsLiveData(newListingItems: List<ListingListItem>):Single<List<ListingListItem>> {
         val newValue = mutableListOf<ListingListItem>()
         listingsListItemsLiveData.value?.let { currentItems ->
             newValue.addAll(currentItems)
