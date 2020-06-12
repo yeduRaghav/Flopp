@@ -57,15 +57,18 @@ class MainScreenActivity : AppCompatActivity() {
             MainScreenViewModel.ListDataState.FirstPageLoaded -> showListView()
             MainScreenViewModel.ListDataState.FirstPageLoading -> showLoadingView()
             MainScreenViewModel.ListDataState.FirstPageLoadFailed -> showErrorView()
-            MainScreenViewModel.ListDataState.NextPageLoadFailed -> {
-                Snackbar.make(
-                    main_screen_root,
-                    getString(R.string.error_view_default_message),
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
+            MainScreenViewModel.ListDataState.NextPageLoadFailed -> showGenericErrorSnackbar()
         }
     }
+
+    private fun showGenericErrorSnackbar() {
+        Snackbar.make(
+            main_screen_root,
+            getString(R.string.error_view_default_message),
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
+
 
     private fun showListView() {
         main_screen_recycler_view.show()

@@ -24,7 +24,6 @@ class ViewModelFactory private constructor(private val application: Application)
         }
     }
 
-
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(MainScreenViewModel::class.java) -> {

@@ -1,5 +1,7 @@
 package com.yrgv.flopp.util
 
+import com.yrgv.flopp.data.db.listings.ListingEntity
+import org.junit.Assert
 import org.junit.Test
 
 /**
@@ -19,8 +21,19 @@ class ModelExtensionsKtTest {
     }
 
     @Test
+    fun testListingDetailEntityToLocalModel() {
+        val listingEntity = ListingEntity(1, "title", "description", "location", 2f, "image")
+        val localModel = listingEntity.toListItem()
+        val expectedTitle =
+            "${listingEntity.id}" + " " + listingEntity.title //not the best way instead, this conversion should be a separate function used in listingEntity.toListItem()
+        Assert.assertTrue(localModel.title == expectedTitle)
+        Assert.assertTrue(localModel.image == listingEntity.image)
+        Assert.assertTrue(localModel.location == listingEntity.location)
+    }
+
+    @Test
     fun testToLocalCurrencyFormatResult() {
-        //todo: Assert Float.toLocalCurrencyFormat():String returns value in expected format.
+        Assert.assertTrue(2f.toLocalCurrencyFormat() == "$ 2.0")
     }
 
     @Test

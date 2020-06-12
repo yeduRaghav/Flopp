@@ -1,6 +1,5 @@
 package com.yrgv.flopp.data.repo
 
-import org.junit.Assert.*
 import org.junit.Test
 
 /**

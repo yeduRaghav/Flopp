@@ -1,6 +1,7 @@
 package com.yrgv.flopp.ui.detail
 
 import android.annotation.SuppressLint
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -104,7 +105,8 @@ class DetailScreenViewModel(
         }
     }
 
-    private fun handleResultFromDb(result: Either<Unit, DetailedListing>) {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun handleResultFromDb(result: Either<Unit, DetailedListing>) {
         when (result) {
             is Either.Error -> {
                 viewStateLiveData.postValue(ViewState.LoadingFailed)
